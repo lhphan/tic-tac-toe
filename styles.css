@@ -1,0 +1,17 @@
+.container {
+	margin: 20px auto 0 auto;
+	max-width: 400px;
+	text-align: center;
+}
+#choosePlayer {
+	margin-bottom: 20px;
+}
+#board {
+	margin-bottom: 20px;
+}
+.square {
+	border: 1px solid #000;
+	display: inline-block;
+	height: 100px;
+	width: 32%;
+}
