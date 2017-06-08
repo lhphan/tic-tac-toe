@@ -10,13 +10,17 @@ button, .square{
 	margin-bottom: 20px;
 }
 #board {
+	max-width: 400px;
 	margin-bottom: 20px;
+}
+.row {
+	width: 100%;
 }
 .square {
 	border: 1px solid #000;
 	display: inline-block;
 	height: 100px;
-	width: 32%;
+	width: 30%;
 }
 .X {
 	background-color: red;
