@@ -1,3 +1,6 @@
+button, .square{
+	cursor: pointer;
+}
 .container {
 	margin: 20px auto 0 auto;
 	max-width: 400px;
@@ -14,4 +17,10 @@
 	display: inline-block;
 	height: 100px;
 	width: 32%;
+}
+.X {
+	background-color: red;
+}
+.O {
+	background-color: blue;
 }
