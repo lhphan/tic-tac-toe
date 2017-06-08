@@ -34,6 +34,10 @@ $(document).ready(function(){
 		   moves[8] === currentPlayer){
 			alert("Player " + currentPlayer + " won!");
 			resetGame();
+		}else if(moves[0] === currentPlayer && moves[4] === currentPlayer && 
+		   moves[8] === currentPlayer){
+			alert("Player " + currentPlayer + " won!");
+			resetGame();
 		}else if(moves[2] === currentPlayer && moves[4] === currentPlayer && 
 		   moves[6] === currentPlayer){
 			alert("Player " + currentPlayer + " won!");
