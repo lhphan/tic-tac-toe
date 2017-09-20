@@ -2,6 +2,7 @@ $(document).ready(function(){
 	var currentPlayer = "X";
 	var moves = [0,1,2,3,4,5,6,7,8];
 	var turns = 0;
+	var gameMode = null;
 	function switchPlayer(thePlayer){
 		if(currentPlayer === "X"){
 			currentPlayer = "O";
@@ -65,26 +66,62 @@ $(document).ready(function(){
 			return false;
 		}
 	}
+	//check if square is already occupied
+	function checkIfUnplayed(boxNum){
+		//is the box with this data-index taken?
+		if($('.square[data-index="' + boxNum +'"]').hasClass('X') || 
+			$('.square[data-index="' + boxNum +'"]').hasClass('O')){
+			return false; //square is taken
+		}else{
+			return true; //square is not taken
+		}
+	} 
+
+	function compMove(){
+		//make array of unplayed spots
+		var unplayed = [];
+		for(var i = 0; i < 9; i++){
+			if(checkIfUnplayed(i)){
+				unplayed.push(i);
+			}		
+		}
+		console.log('unplayed: ' + unplayed);
+		//pick random square from array
+		var randPos = unplayed[Math.floor(Math.random() * unplayed.length)];
+		console.log('randPos: ' + randPos );
+		//make move
+		$('.square[data-index="' + randPos +'"]').addClass(currentPlayer);
+		moves[randPos] = currentPlayer;
+		turns++;
+		console.log("computer played: " + randPos);
+		console.log(moves);
+		console.log("turns: " + turns);
+		switchPlayer(currentPlayer);
+	}
+
 	function makeMove(){
 		$(this).addClass(currentPlayer);
 		moves[theIndex] = currentPlayer;
 		turns++;
 		console.log(moves);
 		console.log("turns: " + turns);
+
 	}
 
 	//initial page display
-	$("#reset").hide();
-	$("#board").hide();
-	$("#choosePlayer").hide();
+	// $("#reset").hide();
+	// $("#board").hide();
+	// $("#choosePlayer").hide();
 
 	$("#pVp").click(function(){
+		gameMode = "pVp";
 		//proceed as usual
 		$("#chooseMode").hide();
 		$("#board").show();
 		$("#reset").show();
 	});
 	$("#pVc").click(function(){
+		gameMode = "pVc";
 		//prompt user to choose game piece
 		$("#chooseMode").hide();
 		$("#choosePlayer").show();
@@ -100,21 +137,25 @@ $(document).ready(function(){
 
 	$(".square").click(function(){
 		var theIndex = $(this).data("index");
-		console.log(theIndex);
-		if($(this).hasClass("X") === false || 
+		console.log("human played: " + theIndex);
+		if($(this).hasClass("X") === false && 
 			$(this).hasClass("O") === false){
-
 			//move this part to a function?
 			$(this).addClass(currentPlayer);
 			moves[theIndex] = currentPlayer;
 			turns++;
+			console.log(moves);
 
 			if(checkWinner() === true){
 				resetGame();
 			}else{
 				switchPlayer(currentPlayer);
+				compMove(); //testing
 			}
 		}
+		// if(gameMode === "pVc"){
+		// 	compMove();
+		// }
 	});
 	$("#reset").click(function(){
 		resetGame();
