@@ -1,13 +1,16 @@
 $(document).ready(function(){
 	var currentPlayer = "X";
+	var opponent = "O";
 	var moves = [0,1,2,3,4,5,6,7,8];
 	var turns = 0;
 	var gameMode = null;
 	function switchPlayer(thePlayer){
 		if(currentPlayer === "X"){
 			currentPlayer = "O";
+			opponent = "X";
 		}else{
 			currentPlayer = "X";
+			opponent = "O";
 		}
 	}
 	function declareWinner(){
@@ -96,7 +99,11 @@ $(document).ready(function(){
 		console.log("computer played: " + randPos);
 		console.log(moves);
 		console.log("turns: " + turns);
-		switchPlayer(currentPlayer);
+		if(checkWinner() === true){
+				resetGame();
+		}else{
+			switchPlayer(currentPlayer);
+		}
 	}
 
 	function makeMove(){
