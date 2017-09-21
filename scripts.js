@@ -80,29 +80,32 @@ $(document).ready(function(){
 	} 
 
 	function compMove(){
-		//make array of unplayed spots
-		var unplayed = [];
-		for(var i = 0; i < 9; i++){
-			if(checkIfUnplayed(i)){
-				unplayed.push(i);
-			}		
-		}
-		console.log('unplayed: ' + unplayed);
-		//pick random square from array
-		var randPos = unplayed[Math.floor(Math.random() * unplayed.length)];
-		console.log('randPos: ' + randPos );
-		//make move
-		$('.square[data-index="' + randPos +'"]').addClass(currentPlayer);
-		moves[randPos] = currentPlayer;
-		turns++;
-		console.log("computer played: " + randPos);
-		console.log(moves);
-		console.log("turns: " + turns);
-		if(checkWinner() === true){
-				declareWinner();
-		}else{
-			switchPlayer(currentPlayer);
-		}
+		setTimeout(function(){
+			//make array of unplayed spots
+			var unplayed = [];
+			for(var i = 0; i < 9; i++){
+				if(checkIfUnplayed(i)){
+					unplayed.push(i);
+				}		
+			}
+			console.log('unplayed: ' + unplayed);
+			//pick random square from array
+			var randPos = unplayed[Math.floor(Math.random() * unplayed.length)];
+			console.log('randPos: ' + randPos );
+			//make move
+			$('.square[data-index="' + randPos +'"]').addClass(currentPlayer);
+			moves[randPos] = currentPlayer;
+			turns++;
+			console.log("computer played: " + randPos);
+			console.log(moves);
+			console.log("turns: " + turns);
+			if(checkWinner() === true){
+					declareWinner();
+			}else{
+				switchPlayer(currentPlayer);
+			}
+		}, 1000);
+		
 	}
 
 	function makeMove(){
@@ -131,7 +134,6 @@ $(document).ready(function(){
 	});
 	$("#pVc").click(function(){
 		gameMode = "pVc";
-		//prompt user to choose game piece
 		$("#chooseMode").hide();
 		$("#choosePlayer").show();
 	});
@@ -160,14 +162,12 @@ $(document).ready(function(){
 		}
 		if(checkWinner() === true){
 				declareWinner();
-				// resetGame();
 		}else if(gameMode === "pVc"){
 			switchPlayer(currentPlayer);
 			compMove();
 		}else{
 			switchPlayer(currentPlayer);
 		}
-
 	});
 
 	$("#reset").click(function(){
