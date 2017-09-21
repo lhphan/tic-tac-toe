@@ -4,6 +4,7 @@ $(document).ready(function(){
 	var moves = [0,1,2,3,4,5,6,7,8];
 	var turns = 0;
 	var gameMode = null;
+
 	function switchPlayer(thePlayer){
 		if(currentPlayer === "X"){
 			currentPlayer = "O";
@@ -13,9 +14,13 @@ $(document).ready(function(){
 			opponent = "O";
 		}
 	}
+	
 	function declareWinner(){
-		alert("Player " + currentPlayer + " won!");
+		console.log("Player " + currentPlayer + " won!");
+		setTimeout(function(){resetGame();}, 2000);
+		
 	}
+	
 	function resetGame(){
 		$("#board").fadeOut();
 		$("#reset").hide();
@@ -24,6 +29,8 @@ $(document).ready(function(){
 		$("#chooseMode").show();
 
 		currentPlayer = "X";
+		opponent = "O";
+		gameMode = null;
 		moves = [0,1,2,3,4,5,6,7,8];
 		turns = 0;
 		$(".X").removeClass("X");
@@ -32,35 +39,27 @@ $(document).ready(function(){
 	function checkWinner(){
 		if(moves[0] === currentPlayer && moves[1] === currentPlayer && 
 		   moves[2] === currentPlayer){
-		   	declareWinner();
 		   	return true;
 		}else if(moves[3] === currentPlayer && moves[4] === currentPlayer && 
 		   moves[5] === currentPlayer){
-		   	declareWinner();
 		   	return true;
 		}else if(moves[6] === currentPlayer && moves[7] === currentPlayer && 
 		   moves[8] === currentPlayer){
-		   	declareWinner();
 		   	return true;
 		}else if(moves[0] === currentPlayer && moves[3] === currentPlayer && 
 		   moves[6] === currentPlayer){
-		   	declareWinner();
 		   	return true;
 		}else if(moves[1] === currentPlayer && moves[4] === currentPlayer && 
 		   moves[7] === currentPlayer){
-		   	declareWinner();
 		   	return true;
 		}else if(moves[2] === currentPlayer && moves[5] === currentPlayer && 
 		   moves[8] === currentPlayer){
-		   	declareWinner();
 		   	return true;
 		}else if(moves[0] === currentPlayer && moves[4] === currentPlayer && 
 		   moves[8] === currentPlayer){
-		   	declareWinner();
 		   	return true;
 		}else if(moves[2] === currentPlayer && moves[4] === currentPlayer && 
 		   moves[6] === currentPlayer){
-		   	declareWinner();
 		   	return true;
 		}else if (turns === 9){
 			alert("It's a tie!");
@@ -69,7 +68,7 @@ $(document).ready(function(){
 			return false;
 		}
 	}
-	//check if square is already occupied
+
 	function checkIfUnplayed(boxNum){
 		//is the box with this data-index taken?
 		if($('.square[data-index="' + boxNum +'"]').hasClass('X') || 
@@ -100,7 +99,7 @@ $(document).ready(function(){
 		console.log(moves);
 		console.log("turns: " + turns);
 		if(checkWinner() === true){
-				resetGame();
+				declareWinner();
 		}else{
 			switchPlayer(currentPlayer);
 		}
@@ -112,20 +111,23 @@ $(document).ready(function(){
 		turns++;
 		console.log(moves);
 		console.log("turns: " + turns);
-
 	}
 
 	//initial page display
-	// $("#reset").hide();
-	// $("#board").hide();
-	// $("#choosePlayer").hide();
+	$("#reset").hide();
+	$("#board").hide();
+	$("#choosePlayer").hide();
+
+	function showGame(){
+		$("#board").show();
+		$("#reset").show();
+	}
 
 	$("#pVp").click(function(){
 		gameMode = "pVp";
 		//proceed as usual
 		$("#chooseMode").hide();
-		$("#board").show();
-		$("#reset").show();
+		showGame();
 	});
 	$("#pVc").click(function(){
 		gameMode = "pVc";
@@ -136,10 +138,13 @@ $(document).ready(function(){
 
 	//assign player to gamepiece
 	$("#chooseX").click(function(){
-
+		$("#choosePlayer").hide();
+		showGame();
 	});
 	$("#chooseO").click(function(){
-		
+		$("#choosePlayer").hide();
+		showGame();
+		compMove();
 	});
 
 	$(".square").click(function(){
@@ -152,18 +157,19 @@ $(document).ready(function(){
 			moves[theIndex] = currentPlayer;
 			turns++;
 			console.log(moves);
-
-			if(checkWinner() === true){
-				resetGame();
-			}else{
-				switchPlayer(currentPlayer);
-				compMove(); //testing
-			}
 		}
-		// if(gameMode === "pVc"){
-		// 	compMove();
-		// }
+		if(checkWinner() === true){
+				declareWinner();
+				// resetGame();
+		}else if(gameMode === "pVc"){
+			switchPlayer(currentPlayer);
+			compMove();
+		}else{
+			switchPlayer(currentPlayer);
+		}
+
 	});
+
 	$("#reset").click(function(){
 		resetGame();
 	});
