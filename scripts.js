@@ -14,15 +14,10 @@ $(document).ready(function(){
 			opponent = "O";
 		}
 	}
-	
-	function declareWinner(){
-		console.log("Player " + currentPlayer + " won!");
-		setTimeout(function(){resetGame();}, 2000);
-		
-	}
-	
+
 	function resetGame(){
 		$("#board").fadeOut();
+		$('.declarePlayer').hide();
 		$("#reset").hide();
 		$("#board").hide();
 		$("#choosePlayer").hide();
@@ -36,6 +31,15 @@ $(document).ready(function(){
 		$(".X").removeClass("X");
 		$(".O").removeClass("O");
 	}
+	
+	function declareWinner(){
+		$('.declarePlayer').text('Player ' + currentPlayer + ' won!');
+		$('.declarePlayer').show();
+		console.log("Player " + currentPlayer + " won!");
+		setTimeout(function(){resetGame();}, 2000);	
+	}
+	
+	
 	function checkWinner(){
 		if(moves[0] === currentPlayer && moves[1] === currentPlayer && 
 		   moves[2] === currentPlayer){
@@ -62,8 +66,10 @@ $(document).ready(function(){
 		   moves[6] === currentPlayer){
 		   	return true;
 		}else if (turns === 9){
-			alert("It's a tie!");
-			return true;
+			$('.declarePlayer').text('It\'s a tie!');
+			$('.declarePlayer').show();
+			setTimeout(function(){resetGame();}, 2000);
+			return false;
 		}else{
 			return false;
 		}
@@ -89,6 +95,8 @@ $(document).ready(function(){
 				}		
 			}
 			console.log('unplayed: ' + unplayed);
+			//check to see if comp needs to block a move
+			
 			//pick random square from array
 			var randPos = unplayed[Math.floor(Math.random() * unplayed.length)];
 			console.log('randPos: ' + randPos );
@@ -104,17 +112,16 @@ $(document).ready(function(){
 			}else{
 				switchPlayer(currentPlayer);
 			}
-		}, 1000);
-		
+		}, 0);	
 	}
 
-	function makeMove(){
-		$(this).addClass(currentPlayer);
-		moves[theIndex] = currentPlayer;
-		turns++;
-		console.log(moves);
-		console.log("turns: " + turns);
-	}
+	// function makeMove(){
+	// 	$(this).addClass(currentPlayer);
+	// 	moves[theIndex] = currentPlayer;
+	// 	turns++;
+	// 	console.log(moves);
+	// 	console.log("turns: " + turns);
+	// }
 
 	//initial page display
 	$("#reset").hide();
@@ -154,7 +161,6 @@ $(document).ready(function(){
 		console.log("human played: " + theIndex);
 		if($(this).hasClass("X") === false && 
 			$(this).hasClass("O") === false){
-			//move this part to a function?
 			$(this).addClass(currentPlayer);
 			moves[theIndex] = currentPlayer;
 			turns++;
