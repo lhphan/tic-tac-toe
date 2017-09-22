@@ -26,6 +26,7 @@ $(document).ready(function(){
 
 		currentPlayer = "X";
 		opponent = "O";
+		compsTurn = false;
 		gameMode = null;
 		moves = [0,1,2,3,4,5,6,7,8];
 		turns = 0;
