@@ -132,7 +132,16 @@ $(document).ready(function(){
 	function compMove(){
 		var square;
 		setTimeout(function(){
-			if(almostWin(opponent) !== false){ //blocks human player from winning
+			if(almostWin(currentPlayer) !== false){
+				square = almostWin(currentPlayer);
+				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
+				moves[square] = currentPlayer;
+				turns++;
+				console.log("computer completed row & played: " + square);
+				console.log(moves);
+				console.log('square: ' + square);
+				console.log("turns: " + turns);
+			}else if(almostWin(opponent) !== false){ //blocks human player from winning
 				square = almostWin(opponent);
 				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
 				moves[square] = currentPlayer;
@@ -143,15 +152,6 @@ $(document).ready(function(){
 				console.log("turns: " + turns);
 				compsTurn = false;
 				console.log("compsTurn: " + compsTurn);
-			}else if(almostWin(currentPlayer) !== false){
-				square = almostWin(currentPlayer);
-				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
-				moves[square] = currentPlayer;
-				turns++;
-				console.log("computer completed row & played: " + square);
-				console.log(moves);
-				console.log('square: ' + square);
-				console.log("turns: " + turns);
 			}else{
 				//make array of unplayed spots
 				var unplayed = [];
