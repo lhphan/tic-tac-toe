@@ -4,6 +4,7 @@ $(document).ready(function(){
 	var moves = [0,1,2,3,4,5,6,7,8];
 	var turns = 0;
 	var gameMode = null;
+	var compsTurn = false;
 
 	function switchPlayer(thePlayer){
 		if(currentPlayer === "X"){
@@ -140,6 +141,8 @@ $(document).ready(function(){
 				console.log(moves);
 				console.log('square: ' + square);
 				console.log("turns: " + turns);
+				compsTurn = false;
+				console.log("compsTurn: " + compsTurn);
 			}else if(almostWin(currentPlayer) !== false){
 				square = almostWin(currentPlayer);
 				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
@@ -168,13 +171,15 @@ $(document).ready(function(){
 				console.log("computer played: " + randPos);
 				console.log(moves);
 				console.log("turns: " + turns);
+				compsTurn = false;
+				console.log("comp's turn: " + compsTurn);
 			}		
 			if(checkWinner() === true){
 					declareWinner();
 			}else{
 				switchPlayer(currentPlayer);
 			}
-		}, 0);	
+		}, 1000);	
 	}
 
 	//initial page display
@@ -205,27 +210,34 @@ $(document).ready(function(){
 	});
 	$("#chooseO").click(function(){
 		$("#choosePlayer").hide();
+		compsTurn = true;
 		showGame();
 		compMove();
 	});
 
 	$(".square").click(function(){
-		var theIndex = $(this).data("index");
-		console.log("human played: " + theIndex);
-		if($(this).hasClass("X") === false && 
-			$(this).hasClass("O") === false){
-			$(this).addClass(currentPlayer);
-			moves[theIndex] = currentPlayer;
-			turns++;
-			console.log(moves);
-		}
-		if(checkWinner() === true){
-				declareWinner();
-		}else if(gameMode === "pVc"){
-			switchPlayer(currentPlayer);
-			compMove();
+		if(compsTurn === false){
+			var theIndex = $(this).data("index");
+			console.log("human played: " + theIndex);
+			if($(this).hasClass("X") === false && 
+				$(this).hasClass("O") === false){
+				$(this).addClass(currentPlayer);
+				moves[theIndex] = currentPlayer;
+				turns++;
+				console.log(moves);
+			}
+			if(checkWinner() === true){
+					declareWinner();
+			}else if(gameMode === "pVc"){
+				switchPlayer(currentPlayer);
+				compsTurn = true;
+				console.log("comp's turn: " + compsTurn);
+				compMove();
+			}else{
+				switchPlayer(currentPlayer);
+			}
 		}else{
-			switchPlayer(currentPlayer);
+			console.log("it's not your turn");
 		}
 	});
 
