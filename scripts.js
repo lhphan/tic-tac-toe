@@ -39,6 +39,49 @@ $(document).ready(function(){
 		setTimeout(function(){resetGame();}, 2000);	
 	}
 	
+	function almostWin(player){
+		if(moves[0] === player && moves[1] === player && checkIfUnplayed(2) === true){
+			return 2;
+		}else if(moves[3] === player && moves[4] === player && checkIfUnplayed(5) === true){
+			return 5;
+		}else if(moves[6] === player && moves[7] === player && checkIfUnplayed(8) === true){
+			return 8;
+		}else if(moves[1] === player && moves[2] === player && checkIfUnplayed(0) === true){
+			return 0;
+		}else if(moves[4] === player && moves[5] === player && checkIfUnplayed(3) === true){
+			return 3;
+		}else if(moves[6] === player && moves[8] === player && checkIfUnplayed(7) === true){
+			return 7;
+		}else if(moves[0] === player && moves[4] === player && checkIfUnplayed(8) === true){
+			return 8;
+		}else if(moves[8] === player && moves[4] === player && checkIfUnplayed(0) === true){
+			return 0;
+		}else if(moves[0] === player && moves[8] === player && checkIfUnplayed(4) === true){
+			return 4;
+		}else if(moves[2] === player && moves[4] === player && checkIfUnplayed(6) === true){
+			return 6;
+		}else if(moves[0] === player && moves[3] === player && checkIfUnplayed(6) === true){
+			return 6;
+		}else if(moves[3] === player && moves[6] === player && checkIfUnplayed(0) === true){
+			return 0;
+		}else if(moves[0] === player && moves[6] === player && checkIfUnplayed(3) === true){
+			return 3;
+		}else if(moves[1] === player && moves[4] === player && checkIfUnplayed(7) === true){
+			return 7;
+		}else if(moves[1] === player && moves[7] === player && checkIfUnplayed(4) === true){
+			return 4;
+		}else if(moves[4] === player && moves[7] === player && checkIfUnplayed(1) === true){
+			return 1;
+		}else if(moves[2] === player && moves[5] === player && checkIfUnplayed(8) === true){
+			return 8;
+		}else if(moves[5] === player && moves[8] === player && checkIfUnplayed(2) === true){
+			return 2;
+		}else if(moves[2] === player && moves[8] === player && checkIfUnplayed(5) === true){
+			return 5;
+		}else{
+			return false;
+		}
+	}
 	
 	function checkWinner(){
 		if(moves[0] === currentPlayer && moves[1] === currentPlayer && 
@@ -86,27 +129,49 @@ $(document).ready(function(){
 	} 
 
 	function compMove(){
+		var square;
 		setTimeout(function(){
-			//make array of unplayed spots
-			var unplayed = [];
-			for(var i = 0; i < 9; i++){
-				if(checkIfUnplayed(i)){
-					unplayed.push(i);
-				}		
+			if(almostWin(opponent) !== false){
+				square = almostWin(opponent);
+				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
+				moves[square] = currentPlayer;
+				turns++;
+				console.log("computer blocked & played: " + square);
+				console.log(moves);
+				console.log('square: ' + square);
+				console.log("turns: " + turns);
+			}else if(almostWin(currentPlayer) !== false){
+				square = almostWin(currentPlayer);
+				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
+				moves[square] = currentPlayer;
+				turns++;
+				console.log("computer completed row & played: " + square);
+				console.log(moves);
+				console.log('square: ' + square);
+				console.log("turns: " + turns);
+			}else{
+				//make array of unplayed spots
+				var unplayed = [];
+				for(var i = 0; i < 9; i++){
+					if(checkIfUnplayed(i)){
+						unplayed.push(i);
+					}		
+				}
+				console.log('unplayed: ' + unplayed);
+				//check to see if comp needs to block a move
+				
+				//pick random square from array
+				var randPos = unplayed[Math.floor(Math.random() * unplayed.length)];
+				console.log('randPos: ' + randPos );
+				//make move
+				$('.square[data-index="' + randPos +'"]').addClass(currentPlayer);
+				moves[randPos] = currentPlayer;
+				turns++;
+				console.log("computer played: " + randPos);
+				console.log(moves);
+				console.log("turns: " + turns);
 			}
-			console.log('unplayed: ' + unplayed);
-			//check to see if comp needs to block a move
 			
-			//pick random square from array
-			var randPos = unplayed[Math.floor(Math.random() * unplayed.length)];
-			console.log('randPos: ' + randPos );
-			//make move
-			$('.square[data-index="' + randPos +'"]').addClass(currentPlayer);
-			moves[randPos] = currentPlayer;
-			turns++;
-			console.log("computer played: " + randPos);
-			console.log(moves);
-			console.log("turns: " + turns);
 			if(checkWinner() === true){
 					declareWinner();
 			}else{
@@ -114,14 +179,6 @@ $(document).ready(function(){
 			}
 		}, 0);	
 	}
-
-	// function makeMove(){
-	// 	$(this).addClass(currentPlayer);
-	// 	moves[theIndex] = currentPlayer;
-	// 	turns++;
-	// 	console.log(moves);
-	// 	console.log("turns: " + turns);
-	// }
 
 	//initial page display
 	$("#reset").hide();
