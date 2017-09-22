@@ -131,7 +131,7 @@ $(document).ready(function(){
 	function compMove(){
 		var square;
 		setTimeout(function(){
-			if(almostWin(opponent) !== false){
+			if(almostWin(opponent) !== false){ //blocks human player from winning
 				square = almostWin(opponent);
 				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
 				moves[square] = currentPlayer;
@@ -157,9 +157,7 @@ $(document).ready(function(){
 						unplayed.push(i);
 					}		
 				}
-				console.log('unplayed: ' + unplayed);
-				//check to see if comp needs to block a move
-				
+				console.log('unplayed: ' + unplayed);				
 				//pick random square from array
 				var randPos = unplayed[Math.floor(Math.random() * unplayed.length)];
 				console.log('randPos: ' + randPos );
@@ -170,8 +168,7 @@ $(document).ready(function(){
 				console.log("computer played: " + randPos);
 				console.log(moves);
 				console.log("turns: " + turns);
-			}
-			
+			}		
 			if(checkWinner() === true){
 					declareWinner();
 			}else{
@@ -192,7 +189,6 @@ $(document).ready(function(){
 
 	$("#pVp").click(function(){
 		gameMode = "pVp";
-		//proceed as usual
 		$("#chooseMode").hide();
 		showGame();
 	});
