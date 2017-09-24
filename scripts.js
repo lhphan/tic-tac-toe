@@ -46,12 +46,16 @@ $(document).ready(function(){
 			return 2;
 		}else if(moves[3] === player && moves[4] === player && checkIfUnplayed(5) === true){
 			return 5;
+		}else if(moves[0] === player && moves[2] === player && checkIfUnplayed(1) === true){
+			return 1;
 		}else if(moves[6] === player && moves[7] === player && checkIfUnplayed(8) === true){
 			return 8;
 		}else if(moves[1] === player && moves[2] === player && checkIfUnplayed(0) === true){
 			return 0;
 		}else if(moves[4] === player && moves[5] === player && checkIfUnplayed(3) === true){
 			return 3;
+		}else if(moves[7] === player && moves[8] === player && checkIfUnplayed(6) === true){
+			return 6;
 		}else if(moves[6] === player && moves[8] === player && checkIfUnplayed(7) === true){
 			return 7;
 		}else if(moves[0] === player && moves[4] === player && checkIfUnplayed(8) === true){
@@ -70,10 +74,14 @@ $(document).ready(function(){
 			return 3;
 		}else if(moves[1] === player && moves[4] === player && checkIfUnplayed(7) === true){
 			return 7;
+		}else if(moves[6] === player && moves[4] === player && checkIfUnplayed(2) === true){
+			return 2;
 		}else if(moves[1] === player && moves[7] === player && checkIfUnplayed(4) === true){
 			return 4;
 		}else if(moves[4] === player && moves[7] === player && checkIfUnplayed(1) === true){
 			return 1;
+		}else if(moves[2] === player && moves[6] === player && checkIfUnplayed(4) === true){
+			return 4;
 		}else if(moves[2] === player && moves[5] === player && checkIfUnplayed(8) === true){
 			return 8;
 		}else if(moves[5] === player && moves[8] === player && checkIfUnplayed(2) === true){
