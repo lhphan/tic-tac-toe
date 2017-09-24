@@ -23,7 +23,6 @@ $(document).ready(function(){
 		$("#board").hide();
 		$("#choosePlayer").hide();
 		$("#chooseMode").show();
-
 		currentPlayer = "X";
 		opponent = "O";
 		compsTurn = false;
@@ -146,6 +145,7 @@ $(document).ready(function(){
 				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
 				moves[square] = currentPlayer;
 				turns++;
+				compsTurn = false;
 				console.log("computer completed row & played: " + square);
 				console.log(moves);
 				console.log('square: ' + square);
@@ -155,11 +155,11 @@ $(document).ready(function(){
 				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
 				moves[square] = currentPlayer;
 				turns++;
+				compsTurn = false;
 				console.log("computer blocked & played: " + square);
 				console.log(moves);
 				console.log('square: ' + square);
 				console.log("turns: " + turns);
-				compsTurn = false;
 				console.log("compsTurn: " + compsTurn);
 			}else{
 				//make array of unplayed spots
@@ -177,10 +177,10 @@ $(document).ready(function(){
 				$('.square[data-index="' + randPos +'"]').addClass(currentPlayer);
 				moves[randPos] = currentPlayer;
 				turns++;
+				compsTurn = false;
 				console.log("computer played: " + randPos);
 				console.log(moves);
 				console.log("turns: " + turns);
-				compsTurn = false;
 				console.log("comp's turn: " + compsTurn);
 			}		
 			if(checkWinner() === true){
@@ -246,7 +246,7 @@ $(document).ready(function(){
 				switchPlayer(currentPlayer);
 			}
 		}else{
-			console.log("it's not your turn");
+			console.log("It's not your turn");
 		}
 	});
 
