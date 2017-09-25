@@ -241,14 +241,17 @@ $(document).ready(function(){
 		if(compsTurn === false){
 			var theIndex = $(this).data("index");
 			var icon = addGamepiece(currentPlayer);
-			console.log("human played: " + theIndex);
 			if($(this).hasClass("X") === false && 
-				$(this).hasClass("O") === false){
+			   $(this).hasClass("O") === false){
 				$(this).addClass(currentPlayer);
 				$(this).html('<span class="gamepiece">' + icon + '</span>');
 				moves[theIndex] = currentPlayer;
 				turns++;
+				console.log("human played: " + theIndex);
 				console.log(moves);
+			}else{
+				console.log("Pick another square.");
+				return false;
 			}
 			if(checkWinner() === true){
 					declareWinner();
