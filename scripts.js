@@ -31,8 +31,17 @@ $(document).ready(function(){
 		turns = 0;
 		$(".X").removeClass("X");
 		$(".O").removeClass("O");
+		$(".square").empty();
 	}
 	
+	function addGamepiece(player){
+		if(player === "X"){
+			return '<i class="fa fa-times" aria-hidden="true" title="X"></i><span class="sr-only">X</span>';
+		}else{
+			return '<i class="fa fa-circle-o" aria-hidden="true" title="O"></i><span class="sr-only">O</span>';
+		}
+	}
+
 	function declareWinner(){
 		$('.declarePlayer').text('Player ' + currentPlayer + ' won!');
 		$('.declarePlayer').show();
@@ -139,10 +148,12 @@ $(document).ready(function(){
 
 	function compMove(){
 		var square;
+		var icon = addGamepiece(currentPlayer);
 		setTimeout(function(){
 			if(almostWin(currentPlayer) !== false){
 				square = almostWin(currentPlayer);
 				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
+				$('.square[data-index="' + square +'"]').html('<span class="gamepiece">' + icon + '<span>');
 				moves[square] = currentPlayer;
 				turns++;
 				compsTurn = false;
@@ -153,6 +164,7 @@ $(document).ready(function(){
 			}else if(almostWin(opponent) !== false){ //blocks human player from winning
 				square = almostWin(opponent);
 				$('.square[data-index="' + square + '"]').addClass(currentPlayer);
+				$('.square[data-index="' + square +'"]').html('<span class="gamepiece">' + icon + '<span>');
 				moves[square] = currentPlayer;
 				turns++;
 				compsTurn = false;
@@ -175,6 +187,7 @@ $(document).ready(function(){
 				console.log('randPos: ' + randPos );
 				//make move
 				$('.square[data-index="' + randPos +'"]').addClass(currentPlayer);
+				$('.square[data-index="' + randPos +'"]').html('<span class="gamepiece">' + icon + '<span>');
 				moves[randPos] = currentPlayer;
 				turns++;
 				compsTurn = false;
@@ -227,10 +240,12 @@ $(document).ready(function(){
 	$(".square").click(function(){
 		if(compsTurn === false){
 			var theIndex = $(this).data("index");
+			var icon = addGamepiece(currentPlayer);
 			console.log("human played: " + theIndex);
 			if($(this).hasClass("X") === false && 
 				$(this).hasClass("O") === false){
 				$(this).addClass(currentPlayer);
+				$(this).html('<span class="gamepiece">' + icon + '</span>');
 				moves[theIndex] = currentPlayer;
 				turns++;
 				console.log(moves);

@@ -20,11 +20,22 @@ button, .square{
 	border: 1px solid #000;
 	display: inline-block;
 	height: 100px;
+	position: relative;
+	text-align: center;
 	width: 30%;
 }
-.X {
-	background-color: red;
+.gamepiece {
+	display: inline-block;
+	font-size: 3em;
+	position: absolute;
 }
-.O {
-	background-color: blue;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }
