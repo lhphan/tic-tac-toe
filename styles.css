@@ -11,6 +11,22 @@ button, .square {
 	max-width: 400px;
 	text-align: center;
 }
+.prompt {
+	font-size: 1.4rem;
+}
+button {
+	background-color: transparent;
+	border: 1px solid #000;
+	border-radius: 20px;
+	padding: 10px;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+
+}
+button:hover {
+	border-color: #22466b;
+	color: #22466b;
+}
 .gameMode {
 	margin-bottom: 20px;
 }
@@ -19,21 +35,29 @@ button, .square {
 	margin-bottom: 20px;
 }
 .row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
 	width: 100%;
 }
 .square {
+	display: flex;
+   	flex-direction: row;
+   	align-items: center;
+   	justify-content: center;
+	
 	background-color: #f9f9f9;
-	/*border: 1px solid #000;*/
 	border-radius: 10px;
-	display: inline-block;
 	height: 100px;
+	margin: 2px;
 	position: relative;
 	text-align: center;
 	width: 30%;
 }
 .gamepiece {
-	display: inline-block;
-	font-size: 3em;
+	display: block;
+	font-size: 5rem;
 	position: absolute;
 }
 .sr-only {
