@@ -46,7 +46,7 @@ $(document).ready(function(){
 		$('.declarePlayer').text('Player ' + currentPlayer + ' won!');
 		$('.declarePlayer').show();
 		console.log("Player " + currentPlayer + " won!");
-		setTimeout(function(){resetGame();}, 2000);	
+		setTimeout(function(){resetGame();}, 3000);	
 	}
 	
 	function almostWin(player){
