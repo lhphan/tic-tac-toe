@@ -38,6 +38,18 @@ button:hover {
 }
 .gameMode {
 	margin-bottom: 20px;
+	position: relative;
+}
+.declarePlayer {
+	background-color: rgba(113, 193, 232, 0.90);
+	font-size: 2rem;
+	margin: 0;
+	padding: 30px 0;
+	position: absolute;
+	text-transform: uppercase;
+	top: 127px;
+	width: 100%;
+	z-index: 10;
 }
 #board {
 	max-width: 400px;

@@ -208,6 +208,7 @@ $(document).ready(function(){
 	$("#reset").hide();
 	$("#board").hide();
 	$("#choosePlayer").hide();
+	$('.declarePlayer').hide();
 
 	function showGame(){
 		$("#board").show();
